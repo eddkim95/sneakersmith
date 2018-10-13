@@ -42,14 +42,14 @@ class Popup extends React.Component {
       console.log(this.props.allProps)
       return (
         <div className='popup'>
-            <h1>test</h1>
+            {/* <h1>test</h1> */}
             <img className='innerImgBox' src={this.props.allProps.imgurl}></img>
-            <h4>imgurl: {this.props.allProps.imgurl}</h4>
-        <h4>brand: {this.props.allProps.brand}</h4>
-        <h4>title: {this.props.allProps.title}</h4>
-        <h4>price: {this.props.allProps.price}</h4>
-        <h4>size: {this.props.allProps.size}</h4>
-        <h4>condition: {this.props.allProps.condition}</h4>
+            {/* <h4>imgurl: {this.props.allProps.imgurl}</h4> */}
+            <h4>[SELLING] {this.props.allProps.title}</h4>
+            <h4>Brand: {this.props.allProps.brand}</h4>
+            <h4>Price: {this.props.allProps.price}</h4>
+            <h4>Size: {this.props.allProps.size}</h4>
+            <h4>Condition: {this.props.allProps.condition}</h4>
           <button onClick={this.props.togglePopup}>close me</button>
         </div>
       );
