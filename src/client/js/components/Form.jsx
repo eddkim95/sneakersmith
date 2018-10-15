@@ -13,7 +13,7 @@ class Form extends React.Component {
     event.preventDefault();
     alert(
       `Selected file - ${
-        this.fileInput.current.files[0].name
+      this.fileInput.current.files[0].name
       }`,
     );
   }

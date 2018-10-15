@@ -1,22 +1,16 @@
-import React from "react";
-import SingleBox from "./SingleBox";
-class List extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        // map through the array? to display
-        let arr = this.props.listing;
-        let testList = [];
-        arr.forEach(i => {
-            testList.push(<SingleBox key={i} content={i} />)
-        })
-        return (
-            <div>
-                {testList}
-            </div>
-        )
-    }
-}
+import React from 'react';
+import SingleBox from './SingleBox';
+
+const List = (props) => {
+  // map through the array? to display
+  const { listing } = props;
+  const singleBoxArr = listing.map(element => <SingleBox key={element.key} content={element} />);
+
+  return (
+    <div>
+      {singleBoxArr}
+    </div>
+  );
+};
 
 export default List;

@@ -16,12 +16,11 @@ app.get('/filterbyBrand/:brand', userController.filterByBrand);
 app.get('/filterbyCondition/:condition', userController.filterByCondition);
 app.get('/filterbyuser/:uid', userController.filterByUser);
 app.get('/filterbySize/:size', userController.filterBySize);
-app.post('/images', parser.single('image'), userController.imageParser);
+// app.post('/images', parser.single('image'), userController.imageParser);
 app.get('/categories/:filter', userController.getCategories);
-app.use(express.static(`${__dirname }/../../dist`));
+app.use(express.static(`${__dirname}/../../dist`));
 
 app.listen(3000, (err) => {
   if (err) console.log(err);
   else console.log('Listening on port 3000...');
 });
-

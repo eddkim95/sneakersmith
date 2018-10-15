@@ -6,8 +6,6 @@ import List from '../components/List.jsx';
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/paulsg10/image/upload';
 const CLOUDINARY_UPLOAD_PRESET = 'savvseld';
 
-// import MoreInfo from "./components/MoreInfo";
-
 class ListContainer extends Component {
   constructor() {
     super();
@@ -25,6 +23,7 @@ class ListContainer extends Component {
       categories: [],
       filterBy: '',
     };
+
     this.togglePopup = this.togglePopup.bind(this);
     this.createNew = this.createNew.bind(this);
     this.updateSelectedBrand = this.updateSelectedBrand.bind(this);
@@ -32,7 +31,6 @@ class ListContainer extends Component {
     this.updateSelectedSize = this.updateSelectedSize.bind(this);
     this.updatePrice = this.updatePrice.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
-    // this.updateUrl = this.updateUrl.bind(this);
     this.handleUploadImage = this.handleUploadImage.bind(this);
     this.getFilters = this.getFilters.bind(this);
     this.filterProduct = this.filterProduct.bind(this);
@@ -40,60 +38,63 @@ class ListContainer extends Component {
 
   componentDidMount() {
     fetch('/listing')
+      .then(data => data.json())
       .then((data) => {
-        console.log(data);
-        return data.json();
-      })
-      .catch((err) => {
-        console.log(err, 'errrr');
-      })
-      .then((data) => {
-        console.log(data, 'listing');
         this.setState({
-          ...this.state,
           listing: data,
         });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   componentDidUpdate() {
-    if (this.state.filterBy === '') {
+    const { filterBy } = this.state;
+
+    if (filterBy === '') {
       fetch('/listing')
+        .then(data => data.json())
         .then((data) => {
-          console.log(data);
-          return data.json();
-        })
-        .catch((err) => {
-          console.log(err, 'errrr');
-        })
-        .then((data) => {
-          console.log(data, 'listing');
           this.setState({
-            ...this.state,
             listing: data,
           });
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   }
 
+  getFilters(event) {
+    const filterBy = event.target.value;
+    fetch(`/categories/${filterBy.toLowerCase()}`)
+      .then(data => data.json())
+      .then((categories) => {
+        const newState = categories.map(category => category[filterBy]);
+        this.setState({ categories: newState, filterBy });
+      });
+  }
+
   createNew() {
-    const newList = this.state.listing.slice();
+    const {
+      title, price, size, condition, brand, listing, imgUrl,
+    } = this.state;
+
+    const newList = listing.slice();
     newList.push({
       imgUrl: '',
       id: `id${newList.length}`,
-      title: this.state.title,
-      price: this.state.price,
-      size: this.state.size,
-      condition: this.state.condition,
-      brand: this.state.brand,
-    });
-    console.log(newList, 'list', this.state.listing);
-    this.setState({
-      ...this.state,
-      listing: newList,
+      title,
+      price,
+      size,
+      condition,
+      brand,
     });
 
-    // make the post request here?
+    this.setState({
+      listing: newList,
+    });
 
     fetch('/listing', {
       method: 'POST',
@@ -102,38 +103,28 @@ class ListContainer extends Component {
       },
 
       body: JSON.stringify({
-        brand: this.state.brand,
-        condition: this.state.condition,
-        imgurl: this.state.imgUrl,
+        brand,
+        condition,
+        imgurl: imgUrl,
         key: 'uuid_generate_v4()',
-        lid: this.state.listing.length,
+        lid: listing.length,
         listdate: new Date(),
-        price: this.state.price,
-        size: this.state.size,
-        title: this.state.title,
+        price,
+        size,
+        title,
         uid: 2,
-
       }),
-    })
-      .then((data) => {
-        console.log(data, 'get back anything?');
-        return data.json();
-      });
-    // .then(newItem => {
-    //   newList.push(newItem);
-    //   this.setState({
-    //     ...this.state,
-    //     listing: newList,
-    //   })
-    // });
+    });
 
     this.togglePopup();
   }
 
   togglePopup() {
+    const { showPopup } = this.state;
     this.setState({
-      showPopup: !this.state.showPopup,
+      showPopup: !showPopup,
     });
+    console.log(showPopup);
   }
 
   // all the updating little functions when you pick brand/size/write title
@@ -166,6 +157,7 @@ class ListContainer extends Component {
       title: event.target.value,
     });
   }
+
   // updateUrl(event) {
   //   this.setState({
   //     imgUrl:event.target.value
@@ -189,7 +181,6 @@ class ListContainer extends Component {
       data: formData,
     })
       .then((res) => {
-        console.log('did it work?', res.data.url);
         this.setState({
           imgUrl: res.data.url,
         });
@@ -199,109 +190,52 @@ class ListContainer extends Component {
       });
   }
 
-  // handleBrand(event) {
-  //   if (event.target.value === 'brand') {
-  //     console.log('brand!!!!');
-  //     fetch('/filterbybrand/:brand')
-  //       .then((data) => {
-  //         console.log(data);
-  //         return data.json();
-  //       })
-  //       .catch((err) => {
-  //         console.log(err, 'errrr');
-  //       })
-  //       .then((data) => {
-  //         console.log(data, 'in brand');
-  //       });
-  //   }
-  //   // else if(event.target.value === 'size'){
-  //   //   console.log('size!!!!');
-  //   //   fetch('/filterbybrand/:size')
-  //   //   .then(data => {
-  //   //     console.log(data)
-  //   //     return data.json();
-  //   //   })
-  //   //   .catch((err) => {
-  //   //     console.log(err,'errrr');
-  //   //   })
-  //   //   .then(data => {
-  //   //     console.log(data,'in size')
-  //   //   })
-  //   // }
-  //   else if (event.target.value === 'condition') {
-  //     console.log('condition!!!!');
-  //     fetch('filterbycondition/:condition')
-  //       .then((data) => {
-  //         console.log(data);
-  //         return data.json();
-  //       })
-  //       .catch((err) => {
-  //         console.log(err, 'errrr');
-  //       })
-  //       .then((data) => {
-  //         console.log(data, 'in condition');
-  //       });
-  //   }
-  // }
-
-  getFilters(event) {
-    const filterBy = event.target.value;
-    fetch(`/categories/${filterBy.toLowerCase()}`)
-      .then(data => data.json())
-      .then((categories) => {
-        const newState = categories.map(category => category[filterBy]);
-        this.setState({ categories: newState, filterBy });
-      });
-  }
-
   filterProduct(event) {
     const { filterBy } = this.state;
     const filter = event.target.value;
-    console.log(`/filterby${filterBy}/${filter}`);
+
     fetch(`/filterby${filterBy}/${filter}`)
       .then(data => data.json())
       .then((sneakers) => {
-        console.log(sneakers, 1);
         this.setState({ listing: sneakers });
       });
   }
 
   render() {
-    const { categories } = this.state;
-    const { getFilters, filterProduct } = this;
+    const { categories, listing, showPopup } = this.state;
+    const {
+      getFilters, filterProduct, togglePopup,
+    } = this;
     const options = categories.map(category => <option>{category}</option>);
 
     return (
-      <div >
+      <div>
         <div id="banner">
           {/* <img  className="banner-image" src="https://cdn.shopify.com/s/files/1/1434/2870/products/IMG_4567_1024x1024.JPG?v=1533897343" ></img> */}
           <div>
-            <h1 className="post-heading" >BUY AND SELL SNEAKERS</h1>
+            <h1 className="post-heading">BUY AND SELL SNEAKERS</h1>
           </div>
         </div>
         <div>
           <div>
             <nav className="post-button-containers">
               <div>
-              <select className="filter-buttons" onChange={event => getFilters(event)}>
-                <option disabled selected value> Filter </option>
-                <option>brand</option>
-                {/* <option>size</option> */}
-                <option>condition</option>
-                <option>size</option>
-              </select>
-
-              <select className="filter-buttons" onChange={event => filterProduct(event)}>
-                <option disabled selected value> Filter By </option>
-                {options}
-              </select>
+                <select className="filter-buttons" onChange={event => getFilters(event)}>
+                  <option disabled selected value> Filter </option>
+                  <option>brand</option>
+                  {/* <option>size</option> */}
+                  <option>condition</option>
+                  <option>size</option>
+                </select>
+                <select className="filter-buttons" onChange={event => filterProduct(event)}>
+                  <option disabled selected value> Filter By </option>
+                  {options}
+                </select>
               </div>
-
-              <button className="post-button" onClick={this.togglePopup}>Post</button>
-            
+              <button className="post-button" onClick={togglePopup}>Post</button>
             </nav>
           </div>
-          {this.state.showPopup
+          {showPopup
             ? (
               <Form
                 createNew={this.createNew}
@@ -317,12 +251,13 @@ class ListContainer extends Component {
             ) : null
           }
           <div className="lists-containers">
-          <List listing={this.state.listing} />
-          {/* <Form  /> */}
+            <List listing={listing} />
+            {/* <Form  /> */}
           </div>
         </div>
       </div>
     );
   }
 }
+
 export default ListContainer;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { throws } from 'assert';
+import { resolve } from 'dns';
 
 class Login extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Login extends Component {
 
   validateUser() {
     const { username, password } = this.state;
+    const { updateLoggedInStatus } = this.props;
     fetch('/login', {
       method: 'POST',
       headers: {
@@ -32,8 +34,15 @@ class Login extends Component {
       },
       body: JSON.stringify({ username, password }),
     })
-      .then(() => alert('Login successful.'))
-      .catch(err => console.log('Login failed.'));
+      .then(response => response.json())
+      .then((data) => {
+        alert('Login successful.');
+        updateLoggedInStatus();
+      })
+      .catch((err) => {
+        // alert('Login failed.');
+        console.log('Login failed.');
+      });
   }
 
   redirectToSignup() {
