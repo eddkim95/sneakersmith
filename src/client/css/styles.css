@@ -1,10 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Anton|Oxygen');
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background: #f4f4ef;
 }
-
+button {
+  cursor: pointer;
+}
 .navbar {
   background: #fff;
   color: rgb(69, 162, 228);
@@ -85,7 +89,6 @@ button.loginButton {
   border: 1px solid #dbe2e8;
   font-size: 14px;
   border-radius: 20px;
-
 }
 
 /* h1{
@@ -179,20 +182,21 @@ h4{
   right: 20%; */
   z-index: 5;
 }
-
 #title {
-  position: absolute;
   letter-spacing: 5px;
-  top: 0.5%;
-  left: 110%;
+  line-height: 90px;
+  height: 90px;
+  margin: 0;
+  vertical-align: middle;
+  float: left;
+  color: white;
 }
 
 #logo {
   height: 90px;
-  width: 97px;
-  border-radius: 50%;
-  /* position: relative; */
-  /* right: 1270px; */
+  width: 120px;
+  background-color:green;
+  float: left;
 }
 
 .post-heading {
@@ -298,7 +302,7 @@ select.filter-buttons {
   top: 85%;
 }
 
-#formTitle {
+#formf {
   margin-bottom: 10px;
 }
 
@@ -337,4 +341,69 @@ select.filter-buttons {
   border: 1px solid #dbe2e8;
   font-size: 14px;
   border-radius: 20px;
+}
+#right-menu {
+  float: right;
+  margin-right: 20px;
+}
+#logo-container{
+  float: left;
+  width: 500px;
+}
+#menu-container {
+  height: 90px;
+  width: 100%;
+}
+.menu-box {
+  position: relative;
+  float: left;
+  background-color: rgba(255,255,255,0.07);
+  margin: 0;
+  height: 90px;
+  width: 110px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.4);;
+  font-family: 'Anton', sans-serif;
+  font-size: 25px;
+  font-weight: 100;
+}
+.menu-box:hover {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+}
+.menu-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+.navigation{
+  background-color: rgba(0,0,0,0.89);
+}
+.nav-item {
+  position: relative;
+  float: left;
+  margin: 0;
+  height: 90px;
+}
+#loginuser-text {
+  float: left;
+  color: white;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 18px;
+  padding-right: 20px;
+  text-align: right;
+}
+.nav-user-item {
+  float: left;
+  color: white;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 18px;
+  padding-right: 20px;
+  padding-top: 35px;
+  text-align: right;
+}
+.nav-button-item {
+  margin: 17px 0;
 }

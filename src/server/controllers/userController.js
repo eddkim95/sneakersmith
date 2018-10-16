@@ -43,8 +43,8 @@ module.exports = {
           const hash = data[0].password;
           bcrypt.compare(password, hash, (err, result) => {
             if (result === true) {
-              console.log('Login successful.');
-              return res.json('Success.');
+              console.log("login success at server: ", data[0].username, data[0].email);
+              return res.json(data[0]);
             }
             // console.log('Login failed.');
             // return res.sendStatus(400);
