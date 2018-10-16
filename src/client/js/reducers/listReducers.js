@@ -13,6 +13,7 @@ const initialState = {
   categories: [],
   filterBy: '',
   isLoggedin: false,
+  formToggleState: false,
 };
 
 export default function (previousState = initialState, action) {
@@ -57,34 +58,50 @@ export default function (previousState = initialState, action) {
       stateCopy.listings = newListings;
       return stateCopy;
     }
+    case types.TOGGLE_FORM: {
+      stateCopy = Object.assign({}, previousState);
+      console.log('does this button working?');
+      stateCopy.formToggleState = !stateCopy.formToggleState;
+      return stateCopy;
+    }
     case types.UPDATE_SELECTED_BRAND: {
       stateCopy = Object.assign({}, previousState);
       stateCopy.brand = action.payload.target.value;
+      console.log('brand', action.payload.target.value)
       return stateCopy;
     }
     case types.UPDATE_SELECTED_CONDITION: {
       stateCopy = Object.assign({}, previousState);
       stateCopy.condition = action.payload.target.value;
+      console.log('condition', action.payload.target.value)
+
       return stateCopy;
     }
     case types.UPDATE_SELECTED_SIZE: {
       stateCopy = Object.assign({}, previousState);
       stateCopy.size = action.payload.target.value;
+      console.log('size', action.payload.target.value)
+
       return stateCopy;
     }
     case types.UPDATE_PRICE: {
       stateCopy = Object.assign({}, previousState);
       stateCopy.price = action.payload.target.value;
+      console.log('price', action.payload.target.value)
+
       return stateCopy;
     }
     case types.UPDATE_TITLE: {
       stateCopy = Object.assign({}, previousState);
       stateCopy.title = action.payload.target.value;
+      console.log('title', action.payload.target.value)
+
       return stateCopy;
     }
     case types.HANDLE_UPLOAD_IMAGE: {
       stateCopy = Object.assign({}, previousState);
       stateCopy.imgUrl = action.payload.target.value;
+
       return stateCopy;
     }
     case types.GET_FILTERS: {
@@ -94,7 +111,7 @@ export default function (previousState = initialState, action) {
     }
     case types.FILTER_PRODUCTS: {
       stateCopy = Object.assign({}, previousState);
-      //stateCopy.filterBy = action.payload.target.value;
+      // stateCopy.filterBy = action.payload.target.value;
       return stateCopy;
     }
     default:

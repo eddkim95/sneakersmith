@@ -8,3 +8,4 @@ export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const HANDLE_UPLOAD_IMAGE = 'HANDLE_UPLOAD_IMAGE';
 export const GET_FILTERS = 'GET_FILTERS';
 export const FILTER_PRODUCTS = 'FILTER_PRODUCTS';
+export const TOGGLE_FORM = 'TOGGLE_FORM';

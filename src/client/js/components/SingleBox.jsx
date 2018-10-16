@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class SingleBox extends React.Component {
+class SingleBox extends Component {
   constructor(props) {
     super(props);
   }

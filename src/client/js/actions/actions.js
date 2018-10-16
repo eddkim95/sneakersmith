@@ -39,12 +39,17 @@ export const handleUploadImage = (event) => ({
   payload: event,
 })
 
-export const getFilters = () => ({
-  type: types.GET_FILTERS,
-  payload: ,
-})
+// export const getFilters = () => ({
+//   type: types.GET_FILTERS,
+//   payload: ,
+// })
 
-export const filterProducts = () => ({
-  type: types.FILTER_PRODUCTS,
-  payload: ,
+// export const filterProducts = () => ({
+//   type: types.FILTER_PRODUCTS,
+//   payload: ,
+// })
+
+export const toggleForm = (event) => ({
+  type: types.TOGGLE_FORM,
+  payload: event,
 })
