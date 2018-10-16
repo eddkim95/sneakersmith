@@ -73,7 +73,7 @@ class Form extends React.Component {
             <input className="formInput" id="imageInput" type="file" name="image" onChange={this.props.handleUploadImage} />
             <br />
             <button className="formInput" id="submitInput" type="submit" onClick={this.props.createNew}>Submit</button>
-            <button className="formInput" id="closeInput" onClick={this.props.togglePopup}>Close</button>
+            <button className="formInput" id="closeInput" onClick={this.props.toggleForm}>Close</button>
           </form>
 
           <div>
