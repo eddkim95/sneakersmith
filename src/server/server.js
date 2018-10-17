@@ -12,6 +12,13 @@ app.post('/signup', userController.createUser);
 app.post('/login', userController.getUser);
 app.get('/listing', userController.getListing);
 app.post('/listing', userController.postListing);
+
+app.post('/getWishlist', userController.getWishlist);
+app.post('/addWishlist', userController.addWishlist);
+app.post('/removeWishlist', userController.removeWishlist);
+
+// app.post('/getUserPosts', userController.getUserPosts);
+
 app.get('/filterbyBrand/:brand', userController.filterByBrand);
 app.get('/filterbyCondition/:condition', userController.filterByCondition);
 app.get('/filterbyuser/:uid', userController.filterByUser);

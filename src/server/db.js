@@ -67,11 +67,27 @@ module.exports = db;
 //     console.log(error);
 //   });
 
+// db.any('DROP TABLE wishlist;')
+// db.any('ALTER TABLE listing RENAME uid TO poster_uid')
+// db.any('ALTER TABLE listing ADD COLUMN fav BOOLEAN')
+// db.any('ALTER TABLE listing REMOVE COLUMN fav')
+
 // Create listing table.
 // db.any('CREATE TABLE listing(lid SERIAL PRIMARY KEY, key VARCHAR(255), uid INTEGER REFERENCES "userinfo", title VARCHAR(255), brand VARCHAR(255), condition VARCHAR(255), size VARCHAR(255), price REAL, imgurl VARCHAR(255));')
 //   .then((data) => {
 //   // success;
 //     console.log('Sucess.');
+//   })
+//   .catch((error) => {
+//   // error;
+//     console.log(error);
+//   });
+
+// Create wishlist table.
+// db.any('CREATE TABLE wishlist(wid SERIAL PRIMARY KEY, key VARCHAR(255), fav_uid INTEGER REFERENCES userinfo(uid), lid INTEGER REFERENCES "listing");')
+//   .then((data) => {
+//   // success;
+//     console.log('Success.');
 //   })
 //   .catch((error) => {
 //   // error;

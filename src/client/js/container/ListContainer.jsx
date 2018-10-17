@@ -200,7 +200,7 @@ class ListContainer extends Component {
         this.setState({ listing: sneakers });
       });
   }
-
+ 
   render() {
     const { categories, listing, showPopup } = this.state;
     const {

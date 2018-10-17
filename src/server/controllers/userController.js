@@ -71,7 +71,7 @@ module.exports = {
     db.any('SELECT * FROM listing;')
       .then((data) => {
         // success;
-        console.log('getListing Success.');
+        //console.log('getListing Success.');
         res.json(data);
       })
       .catch((error) => {
@@ -91,7 +91,7 @@ module.exports = {
       uid, title, brand, condition, size, price, imgurl,
     } = req.body;
 
-    db.any('INSERT INTO listing(key, uid, title, brand, condition, size, price, imgurl, listdate) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6, $7, now());', [uid, title, brand, condition, size, price, imgurl])
+    db.any('INSERT INTO listing(key, poster_uid, title, brand, condition, size, price, imgurl, listdate) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6, $7, now());', [uid, title, brand, condition, size, price, imgurl])
       .then((data) => {
         // success;
         console.log('postListing Success.');
@@ -103,6 +103,90 @@ module.exports = {
         res.sendStatus(404);
       });
   },
+
+  /**
+  * Get wishlist by user from database
+  * @param {object} req - the request object from the server.
+  * @param {object} res - the request object from the server.
+   */
+  getWishlist: (req, res) => {
+    const { uid } = req.body;
+
+    db.any('SELECT * FROM listing INNER JOIN wishlist ON listing.lid = wishlist.lid INNER JOIN userinfo ON wishlist.fav_uid = userinfo.uid WHERE wishlist.fav_uid = $1;', [uid])
+      .then((data) => {
+        // success;
+        console.log('Wishlist Received');
+        res.json(data);
+      })
+      .catch((error) => {
+        // error;
+        console.log(error);
+        res.sendStatus(400);
+      });
+  },
+  
+  /**
+  * Get wishlist by user from database
+  * @param {object} req - the request object from the server.
+  * @param {object} res - the request object from the server.
+   */
+  addWishlist: (req, res) => {
+    const { uid, lid } = req.body;
+
+    db.any('INSERT INTO wishlist (key, fav_uid, lid) VALUES (uuid_generate_v4(), $1, $2);', [uid, lid])
+      .then((data) => {
+        // success;
+        console.log('Added to Wishlist');
+        res.json(data);
+      })
+      .catch((error) => {
+        // error;
+        console.log(error);
+        res.sendStatus(400);
+      });
+  },
+
+  /**
+  * Get wishlist by user from database
+  * @param {object} req - the request object from the server.
+  * @param {object} res - the request object from the server.
+   */
+  removeWishlist: (req, res) => {
+    const { uid, lid } = req.body;
+
+    db.any('DELETE FROM wishlist WHERE wishlist.fav_uid = $1 AND wishlist.lid = $2;', [uid, lid])
+      .then((data) => {
+        // success;
+        console.log('Removed from Wishlist');
+        res.json(data);
+      })
+      .catch((error) => {
+        // error;
+        console.log(error);
+        res.sendStatus(400);
+      });
+  },
+
+  // /**
+  // * Get wishlist by user from database
+  // * @param {object} req - the request object from the server.
+  // * @param {object} res - the request object from the server.
+  //  */
+  // getUserPosts: (req, res) => {
+  //   const { uid } = req.body;
+
+  //   db.any('SELECT * FROM listing WHERE listing.poster_uid = $1;', [uid])
+  //     .then((data) => {
+  //       // success;
+  //       console.log('User Posts Received');
+  //       res.json(data);
+  //     })
+  //     .catch((error) => {
+  //       // error;
+  //       console.log(error);
+  //       res.sendStatus(400);
+  //     });
+  // },
 
   /**
   * Get listings by brand from database
