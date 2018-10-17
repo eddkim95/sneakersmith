@@ -4,7 +4,9 @@ class Form extends Component {
   // where should these functions go
 
   render() {
-    const { brand, condition, price, size, title, userId, imgUrl, createNewListing } = this.props;
+    const { brand, condition, price, size, title, userId, imgUrl, createNewListing, updatePrice, updateSelectedBrand, updateSelectedCondition, updateSelectedSize, updateTitle, uploadImage, toggleForm } = this.props;
+    const postData = { brand, condition, price, size, title, userId, imgUrl };
+    // console.log('this is brand', imgUrl);
     return (
       <div className="formBackground">
         <div id="formContainer">
@@ -12,13 +14,13 @@ class Form extends Component {
 
             <div>
 
-              <input className="formInput" id="formTitle" type="text" placeholder="Title" onChange={(event) => { this.props.updateTitle(event); }} />
+              <input className="formInput" id="formTitle" type="text" placeholder="Title" onChange={(event) => { updateTitle(event); }} />
               <br />
-              <input className="formInput" id="formPrice" type="text" placeholder="Price" onChange={(event) => { this.props.updatePrice(event); }} />
+              <input className="formInput" id="formPrice" type="text" placeholder="Price" onChange={(event) => { updatePrice(event); }} />
               <br />
 
 
-              <select className="formInput" id="selectBrand" onChange={(event) => { this.props.updateSelectedBrand(event); }}>
+              <select className="formInput" id="selectBrand" onChange={(event) => { updateSelectedBrand(event); }}>
                 <option defaultValue="test"> -- Brand -- </option>
                 <option value="Nike">Nike</option>
                 <option value="adidas">adidas</option>
@@ -28,7 +30,7 @@ class Form extends Component {
               </select>
               <br />
 
-              <select className="formInput" id="selectSize" onChange={(event) => { this.props.updateSelectedSize(event); }}>
+              <select className="formInput" id="selectSize" onChange={(event) => { updateSelectedSize(event); }}>
                 <option defaultValue="test"> -- Size -- </option>
                 <option value="7">7</option>
                 <option value="7.5">7.5</option>
@@ -44,7 +46,7 @@ class Form extends Component {
               </select>
               <br />
 
-              <select className="formInput" id="selectCondition" onChange={(event) => { this.props.updateSelectedCondition(event); }}>
+              <select className="formInput" id="selectCondition" onChange={(event) => { updateSelectedCondition(event); }}>
                 <option defaultValue="test"> -- Conditions -- </option>
                 <option value="Mint Deadstock">Mint Deadstock</option>
                 <option value="Deadstock">Deadstock</option>
@@ -55,10 +57,14 @@ class Form extends Component {
               <br />
 
             </div>
-            <input className="formInput" id="imageInput" type="file" name="image" onChange={this.props.handleUploadImage} />
+            <input className="formInput" id="imageInput" type="file" name="image" onChange={(event) => {
+              console.log('handleimage');
+              uploadImage(event)}} />
             <br />
-            <button className="formInput" id="submitInput" type="button" onClick={() => createNewListing({ brand, condition, price, size, title, userId, imgUrl })}>Submit</button>
-            <button className="formInput" id="closeInput" onClick={this.props.toggleForm}>Close</button>
+            <button className="formInput" id="submitInput" type="submit" onClick={() => {
+              console.log('POST DATA =>>>>>>>>>>>>>>>', postData);
+              createNewListing(postData)}}>Submit</button>
+            <button className="formInput" id="closeInput" type="button" onClick={toggleForm}>Close</button>
           </form>
 
           <div>

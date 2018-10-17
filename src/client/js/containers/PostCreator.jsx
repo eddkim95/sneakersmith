@@ -17,8 +17,8 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createListing: () => {
-    dispatch(actions.createListing());
+  createNewListing: (input) => {
+    dispatch(actions.createNewListing(input));
   },
   updateSelectedBrand: (event) => {
     dispatch(actions.updateSelectedBrand(event));
@@ -35,8 +35,8 @@ const mapDispatchToProps = dispatch => ({
   updateTitle: (event) => {
     dispatch(actions.updateTitle(event));
   },
-  handleUploadImage: (event) => {
-    dispatch(actions.handleUploadImage(event));
+  uploadImage: (event) => {
+    dispatch(actions.uploadImage(event));
   },
   getFilters: (event) => {
     dispatch(actions.getFilters(event));
@@ -51,7 +51,7 @@ const mapDispatchToProps = dispatch => ({
 
 class PostCreator extends Component {
   render() {
-    const { formToggleState, createListing, toggleForm, updateSelectedBrand, updateSelectedSize, updateSelectedCondition, updateTitle, updatePrice, updateUrl, handleUploadImage, brand, condition, userId, imgUrl, title, price, size } = this.props;
+    const { formToggleState, createNewListing, toggleForm, updateSelectedBrand, updateSelectedSize, updateSelectedCondition, updateTitle, updatePrice, updateUrl, uploadImage, brand, condition, userId, imgUrl, title, price, size } = this.props;
     return (
       <div>
         <div id="banner">
@@ -82,7 +82,7 @@ class PostCreator extends Component {
           {formToggleState
             ? (
               <Form
-                createNew={createListing}
+                createNewListing={createNewListing}
                 toggleForm={toggleForm}
                 updateSelectedBrand={updateSelectedBrand}
                 updateSelectedSize={updateSelectedSize}
@@ -90,7 +90,7 @@ class PostCreator extends Component {
                 updateTitle={updateTitle}
                 updatePrice={updatePrice}
                 updateUrl={updateUrl}
-                handleUploadImage={handleUploadImage}
+                uploadImage={uploadImage}
                 brand={brand}
                 condition={condition}
                 size={size}

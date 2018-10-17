@@ -91,6 +91,7 @@ export const getListing = () => {
 };
 
 export const uploadImage = (event) => {
+  console.log('is it hitting this?');
   return function (dispatch) {
     event.preventDefault();
 
@@ -108,17 +109,19 @@ export const uploadImage = (event) => {
       data: formData,
     })
       .then((res) => {
+        console.log('url ', res.data.url)
         dispatch(handleUploadImage(res.data.url));
       })
       .catch((err) => {
-        console.log(err);
+        console.log('error', err);
       });
   }
 };
 
 export const createNewListing = (postData) => {
+  console.log('postdata', postData);
   return function (dispatch) {
-    const { brand, condition, price, size, title, userId } = postData
+    const { brand, condition, price, size, title, userId, imgUrl } = postData
     return fetch('/listing', {
       method: 'POST',
       headers: {
@@ -130,12 +133,10 @@ export const createNewListing = (postData) => {
         condition,
         imgurl: imgUrl,
         key: 'uuid_generate_v4()',
-        lid: listing.length,
-        listdate: new Date(),
         price,
         size,
         title,
-        userId,
+        userId: 2,
       }),
     })
       .then((res) => {

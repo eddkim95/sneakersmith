@@ -88,7 +88,7 @@ module.exports = {
    */
   postListing: (req, res) => {
     const {
-      userId, title, brand, condition, size, price, imgurl, listdate,
+      userId, title, brand, condition, size, price, imgurl,
     } = req.body;
 
     db.any('INSERT INTO listing(key, poster_uid, title, brand, condition, size, price, imgurl, listdate) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6, $7, now());', [userId, title, brand, condition, size, price, imgurl])
