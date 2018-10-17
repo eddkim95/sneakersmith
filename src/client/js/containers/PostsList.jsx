@@ -34,7 +34,7 @@ class PostsList extends Component {
     });
 
     return(
-      <div>
+      <div class="lists-containers">
         { listingPosts }
       </div>
     )

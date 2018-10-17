@@ -9,7 +9,7 @@ class Navigation extends Component {
   render() {
     const { isLoggedIn, username } = this.props;
     console.log(isLoggedIn);
-    const listingButton = isLoggedIn ? <NavLink to="/" className="menu-box"><span className="menu-text">Listing</span></NavLink> : '';
+    const listingButton = isLoggedIn ? <div><NavLink to="/" className="menu-box"><span className="menu-text">Listing</span></NavLink><NavLink to="/" className="menu-box"><span className="menu-text">About</span></NavLink></div>  : '';
     const logInOutButton = isLoggedIn ?
       <div className="nav-item nav-button-item"><button className="navButton" onClick={() => { this.props.logoutUser(); }}>Logout</button></div> :
       <div className="nav-item nav-button-item"><NavLink to="/login"><button className="navButton">Login</button></NavLink></div>;
@@ -19,7 +19,7 @@ class Navigation extends Component {
       <div className="navigation">
         <div id="logo-container">
           <img id="logo" src="http://res.cloudinary.com/paulsg10/image/upload/v1539456790/zwyb03ok1hsidmcyo87a.jpg" id="logo" />
-          <h1 id="title">SneakerSmith</h1>
+          <h3 id="title">SneakerSmith</h3>
         </div>
         <div id="menu-container">
           <div id="left-menu">
