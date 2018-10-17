@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
 
-class SingleBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showPopup: false,
-    };
-    this.togglePopup = this.togglePopup.bind(this);
-  }
+const mapStateToProps = store => ({
+  formToggleState: store.posts.formToggleState,
+});
 
-  togglePopup() {
-    const { showPopup } = this.state;
-
-    this.setState({
-      showPopup: !showPopup,
-    });
-  }
+const mapDispatchToProps = dispatch => ({
+  toggleForm: (event) => {
+    dispatch(actions.toggleForm(event));
+  },
+  togglePopup: (event) => {
+    dispatch(actions.togglePopup(event));
+  },
+});
+class SingleBox extends Component {
 
   render() {
-    const { content } = this.props;
-    const { imgurl, title, price } = content;
-    const { showPopup } = this.state;
-    const { togglePopup } = this;
+    const { imgurl, user, title, price, key, showPopup } = this.props.content;
+    const { togglePopup } = this.props;
+    const popupContent = this.props.content;
+    console.log(this.props.content);
+    //console.log('pop up content: ', content);
+    const popupDisplay = [];
+    if (showPopup) {
+      // console.log(showPopup);
+      popupDisplay.push(<Popup text="Close Me" togglePopup={togglePopup} allProps={popupContent} />);
+    }
+
     return (
       <div className="singleBox">
         <div className="singlebox-img-wrapper">
@@ -31,26 +37,16 @@ class SingleBox extends React.Component {
         {/* <h4>imgurl: {this.props.content.imgurl}</h4> */}
         {/* <h4>brand: {this.props.content.brand}</h4> */}
         <div className="singlebox-info-wrapper">
+          <h4>{user}</h4>
           <h5>{title}</h5>
           <h5 className="singlebox-price">{'$' + price}</h5>
         </div>
         <div className="singlebox-btn-wrapper">
           <button className="fas fa-heart"></button>
           <button className="far fa-heart"></button>
-          <button className="btn btn-outline-primary singlebox-showdetail-btn" onClick={this.togglePopup}>Show more details</button>
+          <button className="btn btn-outline-primary singlebox-showdetail-btn" onClick={() => togglePopup(key)}>Show more details</button>
         </div>
-        {/* <h4>size: {this.props.content.size}</h4> */}
-        {/* <h4>condition: {this.props.content.condition}</h4> */}
-        {/* <button className="detail-button" onClick={togglePopup}>Show more details</button> */}
-        {showPopup
-          ? (
-            <Popup
-              text="Close Me"
-              togglePopup={togglePopup}
-              allProps={content}
-            />
-          ) : null
-        }
+        {popupDisplay}
       </div>
     );
   }
@@ -58,14 +54,17 @@ class SingleBox extends React.Component {
 
 const Popup = (props) => {
   const { allProps } = props;
-  const {
-    imgurl, brand, title, price, size, condition,
-  } = allProps;
+  const { user, key, imgurl, brand, title, price, size, condition } = allProps;
   const { togglePopup } = props;
 
   return (
     <div className="popup">
       <img className="innerImgBox" src={imgurl} />
+      <h4>
+        user:
+        {' '}
+        {user}
+      </h4>
       <h4>
         brand:
         {' '}
@@ -91,9 +90,9 @@ const Popup = (props) => {
         {' '}
         {condition}
       </h4>
-      <button onClick={togglePopup}>Close</button>
+      <button onClick={() => togglePopup(key)}>Close</button>
     </div>
   );
 };
 
-export default SingleBox;
+export default connect(mapStateToProps, mapDispatchToProps)(SingleBox);

@@ -15,12 +15,12 @@ module.exports = {
     db.any('INSERT INTO userinfo(key, username, password, email) VALUES (uuid_generate_v4(), $1, $2, $3);', [username, hash, email])
       .then((data) => {
         // success;
-        console.log('createUser Success.');
+        // console.log('createUser Success.');
         res.json(data);
       })
       .catch((error) => {
         // error;
-        console.log(error);
+        console.log('createUser:', error);
         res.sendStatus(404);
       });
   },
@@ -57,7 +57,7 @@ module.exports = {
       })
       .catch((error) => {
         // error;
-        console.log(error);
+        console.log('getUser:', error);
         res.sendStatus(400);
       });
   },
@@ -71,12 +71,12 @@ module.exports = {
     db.any('SELECT * FROM listing;')
       .then((data) => {
         // success;
-        console.log('getListing Success.');
+        // console.log('getListing Success.');
         res.json(data);
       })
       .catch((error) => {
         // error;
-        console.log(error);
+        console.log('getListin:', error);
         res.sendStatus(404);
       });
   },
@@ -94,12 +94,12 @@ module.exports = {
     db.any('INSERT INTO listing(key, uid, title, brand, condition, size, price, imgurl, listdate) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6, $7, now());', [uid, title, brand, condition, size, price, imgurl])
       .then((data) => {
         // success;
-        console.log('postListing Success.');
+        // console.log('postListing Success.');
         res.json(data);
       })
       .catch((error) => {
         // error;
-        console.log(error);
+        console.log('postListing:', error);
         res.sendStatus(404);
       });
   },
@@ -115,12 +115,12 @@ module.exports = {
     db.any('SELECT * FROM listing WHERE brand = $1;', [brand])
       .then((data) => {
         // success;
-        console.log('filterByBrand Success.');
+        // console.log('filterByBrand Success.');
         res.json(data);
       })
       .catch((error) => {
         // error;
-        console.log(error);
+        console.log('filterByBrand:', error);
         res.sendStatus(404);
       });
   },

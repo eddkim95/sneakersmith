@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './components/Login.jsx';
-import Signup from './components/Signup.jsx';
-import Navigation from './components/Navigation.jsx';
-import ListContainer from './container/ListContainer';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Navigation from './components/Navigation';
+import MainContainer from './containers/MainContainer';
 
 // import MoreInfo from "./components/MoreInfo";
 
@@ -40,7 +40,7 @@ class App extends Component {
             <Route path="/login" render={(props) =>
               <Login isLoggedIn={isLoggedIn} updateLoggedInStatus={this.updateLoggedInStatus} />} />
             <Route path="/signup" component={Signup} />
-            <Route path="/" component={ListContainer} />
+            <Route path="/" component={MainContainer} />
           </Switch>
         </div>
       </BrowserRouter>
