@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Anton|Oxygen');
-
+@import url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css?family=Anton|Oxygen|Roboto');
 body {
   margin: 0;
   padding: 0;
@@ -30,17 +30,18 @@ button {
   letter-spacing: 3px;
   font-family: 'Roboto',sans-serif;
 }
-
+.helper{
+  height: 100%;
+  vertical-align: middle;
+}
 .singleBox{
+  flex-grow: 1;
   background: white;
-  float: left;
   width: 350px;
-  /* height: 700px; */
-  height: 50%;
-  margin: 2px 0px 20px 40px;
+  min-height: 400px;
+  margin: 2px 20px 20px 20px;
   box-shadow: 10px 10px 12px 0 rgba(46, 60, 73, 0.05);
-  padding: 25px 15px 25px 15px;
-  position: relative;
+  padding: 20px 25px;
 }
 .formBackground{
   background: rgb(192, 192, 192, 0.5);
@@ -134,11 +135,9 @@ h4{
 .lists-containers {
   width: 100%;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  /* margin-top: 115px; */
-  margin-top: 50px;
+  padding: 30px;
 }
 
 .navigation-buttons-container {
@@ -183,6 +182,8 @@ h4{
   z-index: 5;
 }
 #title {
+  font-size: 32px;
+  font-weight: 700;
   letter-spacing: 5px;
   line-height: 90px;
   height: 90px;
@@ -207,7 +208,7 @@ h4{
   color: black;
   word-wrap: break-word;
   position: absolute;
-  top: 150px;
+  top: 220px;
   left: 50%;
   transform: translate(-50%, -50%);
   text-shadow: 0px 0px 60px #fff;
@@ -406,4 +407,41 @@ select.filter-buttons {
 }
 .nav-button-item {
   margin: 17px 0;
+}
+.singlebox-container {
+  position: absolute;
+  bottom: 35px;
+}
+.singlebox-price {
+  margin-bottom: 15px;
+}
+.singlebox-showdetail-btn{
+  border-radius: 20px;
+}
+.far {
+  background-color: white;
+  color: #6c757d;
+}
+.fas {
+  background-color: #dc3545;
+  color: white;
+}
+.fa-heart{
+  float: right;
+  margin-right: 15px;
+  font-size: 18px;
+  border: 1px solid;
+  border-radius: 50%;
+  padding: 8px;
+}
+.singlebox-img-wrapper {
+  min-height: 200px;
+}
+.singlebox-info-wrapper {
+  height: 90px;
+  width: 100%;
+}
+.singlebox-btn-wrapper {
+  height: 40px;
+  width: 100%;
 }

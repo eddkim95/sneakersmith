@@ -30,16 +30,22 @@ class SingleBox extends Component {
 
     return (
       <div className="singleBox">
+        <div className="singlebox-img-wrapper">
         {/* uid, title, brand, condition, size, price, imgurl */}
-        <img className="imgBox" src={imgurl} alt="shoe-img" />
+         <img className="imgBox" src={imgurl} alt="shoe-img" />
+        </div>
         {/* <h4>imgurl: {this.props.content.imgurl}</h4> */}
         {/* <h4>brand: {this.props.content.brand}</h4> */}
-        <h4>{user}</h4>
-        <h4>{title}</h4>
-        <h4>{price}</h4>
-        {/* <h4>size: {this.props.content.size}</h4> */}
-        {/* <h4>condition: {this.props.content.condition}</h4> */}
-        <button type="button" className="detail-button" onClick={() => togglePopup(key)}>Show more details</button>
+        <div className="singlebox-info-wrapper">
+          <h4>{user}</h4>
+          <h5>{title}</h5>
+          <h5 className="singlebox-price">{'$' + price}</h5>
+        </div>
+        <div className="singlebox-btn-wrapper">
+          <button type="button" className="fas fa-heart"></button>
+          <button type="button" className="far fa-heart"></button>
+          <button type="button" className="btn btn-outline-primary singlebox-showdetail-btn" onClick={() => togglePopup(key)}>Show more details</button>
+        </div>
         {popupDisplay}
       </div>
     );
@@ -71,7 +77,7 @@ const Popup = (props) => {
       </h4>
       <h4>
         price:
-        {' '}
+        {' $'}
         {price}
       </h4>
       <h4>
