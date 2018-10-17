@@ -5,6 +5,7 @@ import SingleBox from '../components/SingleBox';
 
 const mapStateToProps = store => ({
   listings: store.posts.listings,
+  showPopup: store.posts.showPopup,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -18,18 +19,18 @@ const mapDispatchToProps = dispatch => ({
 
 class PostsList extends Component {
 
-  // componentDidMount() {
-  //   const { getListing } = this.props;
-  //   getListing();
-  // }
+  componentDidMount() {
+    const { getListing } = this.props;
+    getListing();
+  }
 
   render() {
-    this.props.getListing();
-    let { listings } = this.props;
+    // this.props.getListing();
+    let { listings, showPopup } = this.props;
     let listingPosts = listings.map((element) =>{
       return (
-      <SingleBox content={element} togglePopup={this.props.togglePopup}/>
-      )
+        <SingleBox key={element.key} showPopup={showPopup} content={element} togglePopup={this.props.togglePopup}/>
+      );
     });
 
     return(

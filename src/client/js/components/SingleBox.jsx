@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
-const mapStateToProps = store => ({
-  formToggleState: store.posts.formToggleState,
-});
+// const mapStateToProps = store => ({
+//   formToggleState: store.posts.formToggleState,
+// });
 
-const mapDispatchToProps = dispatch => ({
-  toggleForm: (event) => {
-    dispatch(actions.toggleForm(event));
-  },
-  togglePopup: (event) => {
-    dispatch(actions.togglePopup(event));
-  },
-});
+// const mapDispatchToProps = dispatch => ({
+//   toggleForm: (event) => {
+//     dispatch(actions.toggleForm(event));
+//   },
+//   togglePopup: (event) => {
+//     dispatch(actions.togglePopup(event));
+//   },
+// });
 class SingleBox extends Component {
 
   render() {
@@ -39,7 +39,7 @@ class SingleBox extends Component {
         <h4>{price}</h4>
         {/* <h4>size: {this.props.content.size}</h4> */}
         {/* <h4>condition: {this.props.content.condition}</h4> */}
-        <button className="detail-button" onClick={() => togglePopup(key)}>Show more details</button>
+        <button type="button" className="detail-button" onClick={() => togglePopup(key)}>Show more details</button>
         {popupDisplay}
       </div>
     );
@@ -84,9 +84,9 @@ const Popup = (props) => {
         {' '}
         {condition}
       </h4>
-      <button onClick={() => togglePopup(key)}>Close</button>
+      <button className="navButton" type="button" onClick={() => togglePopup(key)}>Back</button>
     </div>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleBox);
+export default SingleBox;
