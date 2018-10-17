@@ -11,10 +11,20 @@ const mapDispatchToProps = dispatch => ({
   togglePopup: (postId) => {
     dispatch(actions.togglePopup(postId));
   },
+  getListing: () => {
+    dispatch(actions.getListing());
+  },
 });
 
 class PostsList extends Component {
+
+  // componentDidMount() {
+  //   const { getListing } = this.props;
+  //   getListing();
+  // }
+
   render() {
+    this.props.getListing();
     let { listings } = this.props;
     let listingPosts = listings.map((element) =>{
       return (

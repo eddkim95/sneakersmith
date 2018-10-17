@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes';
+import axios from 'axios';
 
 export const togglePopup = (postId) => ({
   type: types.TOGGLE_POPUP,
@@ -49,7 +50,28 @@ export const handleUploadImage = (event) => ({
 //   payload: ,
 // })
 
-export const toggleForm = (event) => ({
+export const toggleForm = event => ({
   type: types.TOGGLE_FORM,
   payload: event,
 })
+
+export const displayListing = data => ({
+  type: types.DISPLAY_LISTING,
+  payload: data,
+})
+
+export const getListing = () => {
+  return function (dispatch) {
+    return fetch('/listing')
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      // console.log(data);
+      dispatch(displayListing(data));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+}

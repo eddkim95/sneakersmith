@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
 
+const mapStateToProps = store => ({
+  formToggleState: store.posts.formToggleState,
+});
+
+const mapDispatchToProps = dispatch => ({
+  toggleForm: (event) => {
+    dispatch(actions.toggleForm(event));
+  },
+  togglePopup: (event) => {
+    dispatch(actions.togglePopup(event));
+  },
+});
 class SingleBox extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
-    const { imgurl, user, title, price, id, showPopup, togglePopup } = this.props;
-    const content = this.props;
-    console.log('pop up content: ', content);
+    const { imgurl, user, title, price, key, showPopup } = this.props.content;
+    const { togglePopup } = this.props;
+    const popupContent = this.props.content;
+    console.log(this.props.content);
+    //console.log('pop up content: ', content);
+    const popupDisplay = [];
+    if (showPopup) {
+      // console.log(showPopup);
+      popupDisplay.push(<Popup text="Close Me" togglePopup={togglePopup} allProps={popupContent} />);
+    }
 
     return (
       <div className="singleBox">
@@ -21,16 +39,8 @@ class SingleBox extends Component {
         <h4>{price}</h4>
         {/* <h4>size: {this.props.content.size}</h4> */}
         {/* <h4>condition: {this.props.content.condition}</h4> */}
-        <button className="detail-button" onClick={() => togglePopup(id)}>Show more details</button>
-        {showPopup
-          ? (
-            <Popup
-              text="Close Me"
-              togglePopup={togglePopup}
-              allProps={content}
-            />
-          ) : null
-        }
+        <button className="detail-button" onClick={() => togglePopup(key)}>Show more details</button>
+        {popupDisplay}
       </div>
     );
   }
@@ -38,9 +48,7 @@ class SingleBox extends Component {
 
 const Popup = (props) => {
   const { allProps } = props;
-  const {
-    user, id, imgurl, brand, title, price, size, condition,
-  } = allProps;
+  const { user, key, imgurl, brand, title, price, size, condition } = allProps;
   const { togglePopup } = props;
 
   return (
@@ -76,9 +84,9 @@ const Popup = (props) => {
         {' '}
         {condition}
       </h4>
-      <button onClick={() => togglePopup(id)}>Close</button>
+      <button onClick={() => togglePopup(key)}>Close</button>
     </div>
   );
 };
 
-export default SingleBox;
+export default connect(mapStateToProps, mapDispatchToProps)(SingleBox);

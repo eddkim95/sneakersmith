@@ -19,7 +19,7 @@ class MainContainer extends Component {
   render() {
     return (
       <div className="MainContainer" >
-        <Navigation />
+        {/* <Navigation /> */}
         <PostCreator />
         <PostsList />
       </div>

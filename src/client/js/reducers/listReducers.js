@@ -14,6 +14,7 @@ const initialState = {
   filterBy: '',
   isLoggedin: false,
   formToggleState: false,
+  showPopup: false,
 };
 
 export default function (previousState = initialState, action) {
@@ -26,13 +27,16 @@ export default function (previousState = initialState, action) {
       let toggledPost;
       let toggledPostArrayNum;
       for (let i = 0; i < listingsCopy.length; i += 1) {
-        if (listingsCopy[i].id === action.payload) {
+        if (listingsCopy[i].key === action.payload) {
+          console.log('toggle me');
           toggledPost = listingsCopy[i];
           toggledPostArrayNum = i;
           break;
         }
         console.log('no post found');
       }
+      console.log('toggledPost:', toggledPost);
+      console.log(toggledPost.showPopup);
       toggledPost.showPopup = !toggledPost.showPopup;
       listingsCopy[toggledPostArrayNum] = toggledPost;
       stateCopy.listings = listingsCopy;
@@ -40,12 +44,12 @@ export default function (previousState = initialState, action) {
     }
     case types.CREATE_LISTING: {
       stateCopy = Object.assign({}, previousState);
-      const { user, imgUrl, id, title, price, condition, brand, size, listings } = previousState;
-      const showPopup = false;
+      const { user, imgUrl, key, title, price, condition, brand, size, listings, showPopup } = previousState;
+      
       const newListing = {
         user,
         imgUrl,
-        id,
+        key,
         title,
         price,
         brand,
@@ -112,6 +116,11 @@ export default function (previousState = initialState, action) {
     case types.FILTER_PRODUCTS: {
       stateCopy = Object.assign({}, previousState);
       // stateCopy.filterBy = action.payload.target.value;
+      return stateCopy;
+    }
+    case types.DISPLAY_LISTING: {
+      stateCopy = Object.assign({}, previousState);
+      stateCopy.listings = action.payload;
       return stateCopy;
     }
     default:
