@@ -26,10 +26,10 @@ class PostsList extends Component {
 
   render() {
     // this.props.getListing();
-    let { listings, showPopup } = this.props;
+    let { listings, showPopup, togglePopup } = this.props;
     let listingPosts = listings.map((element) =>{
       return (
-        <SingleBox key={element.key} showPopup={showPopup} content={element} togglePopup={this.props.togglePopup}/>
+        <SingleBox key={element.key} showPopup={showPopup} content={element} togglePopup={togglePopup} />
       );
     });
 
