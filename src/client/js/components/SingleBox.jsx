@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
-const mapStateToProps = store => ({
-  formToggleState: store.posts.formToggleState,
-});
+// const mapStateToProps = store => ({
+//   formToggleState: store.posts.formToggleState,
+// });
 
-const mapDispatchToProps = dispatch => ({
-  toggleForm: (event) => {
-    dispatch(actions.toggleForm(event));
-  },
-  togglePopup: (event) => {
-    dispatch(actions.togglePopup(event));
-  },
-});
+// const mapDispatchToProps = dispatch => ({
+//   toggleForm: (event) => {
+//     dispatch(actions.toggleForm(event));
+//   },
+//   togglePopup: (event) => {
+//     dispatch(actions.togglePopup(event));
+//   },
+// });
 class SingleBox extends Component {
 
   render() {
@@ -42,9 +42,9 @@ class SingleBox extends Component {
           <h5 className="singlebox-price">{'$' + price}</h5>
         </div>
         <div className="singlebox-btn-wrapper">
-          <button className="fas fa-heart"></button>
-          <button className="far fa-heart"></button>
-          <button className="btn btn-outline-primary singlebox-showdetail-btn" onClick={() => togglePopup(key)}>Show more details</button>
+          <button type="button" className="fas fa-heart"></button>
+          <button type="button" className="far fa-heart"></button>
+          <button type="button" className="btn btn-outline-primary singlebox-showdetail-btn" onClick={() => togglePopup(key)}>Show more details</button>
         </div>
         {popupDisplay}
       </div>
@@ -90,9 +90,9 @@ const Popup = (props) => {
         {' '}
         {condition}
       </h4>
-      <button onClick={() => togglePopup(key)}>Close</button>
+      <button className="navButton" type="button" onClick={() => togglePopup(key)}>Back</button>
     </div>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleBox);
+export default SingleBox;

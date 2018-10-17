@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes';
 
 
 const initialState = {
-  user: '',
+  userId: '',
   imgUrl: '',
   title: '',
   price: 0,
@@ -14,7 +14,6 @@ const initialState = {
   filterBy: '',
   isLoggedin: false,
   formToggleState: false,
-  showPopup: false,
 };
 
 export default function (previousState = initialState, action) {
@@ -38,16 +37,17 @@ export default function (previousState = initialState, action) {
       console.log('toggledPost:', toggledPost);
       console.log(toggledPost.showPopup);
       toggledPost.showPopup = !toggledPost.showPopup;
+      console.log(toggledPost.showPopup);
       listingsCopy[toggledPostArrayNum] = toggledPost;
       stateCopy.listings = listingsCopy;
       return stateCopy;
     }
     case types.CREATE_LISTING: {
       stateCopy = Object.assign({}, previousState);
-      const { user, imgUrl, key, title, price, condition, brand, size, listings, showPopup } = previousState;
-      
+      const { userId, imgUrl, key, title, price, condition, brand, size, listings } = previousState;
+
       const newListing = {
-        user,
+        userId,
         imgUrl,
         key,
         title,
@@ -55,7 +55,6 @@ export default function (previousState = initialState, action) {
         brand,
         size,
         condition,
-        showPopup,
       };
       const newListings = listings.slice();
       newListings.push(newListing);
@@ -66,6 +65,12 @@ export default function (previousState = initialState, action) {
       stateCopy = Object.assign({}, previousState);
       console.log('does this button working?');
       stateCopy.formToggleState = !stateCopy.formToggleState;
+      return stateCopy;
+    }
+    case types.TOGGLE_DETAIL: {
+      stateCopy = Object.assign({}, previousState);
+      console.log('does this button working?');
+      stateCopy.showPopup = !stateCopy.showPopup;
       return stateCopy;
     }
     case types.UPDATE_SELECTED_BRAND: {
@@ -104,7 +109,7 @@ export default function (previousState = initialState, action) {
     }
     case types.HANDLE_UPLOAD_IMAGE: {
       stateCopy = Object.assign({}, previousState);
-      stateCopy.imgUrl = action.payload.target.value;
+      stateCopy.imgUrl = action.payload;
 
       return stateCopy;
     }
@@ -123,6 +128,7 @@ export default function (previousState = initialState, action) {
       stateCopy.listings = action.payload;
       return stateCopy;
     }
+
     default:
       return previousState;
   }
