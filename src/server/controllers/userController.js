@@ -88,10 +88,10 @@ module.exports = {
    */
   postListing: (req, res) => {
     const {
-      uid, title, brand, condition, size, price, imgurl,
+      userId, title, brand, condition, size, price, imgurl, listdate,
     } = req.body;
 
-    db.any('INSERT INTO listing(key, uid, title, brand, condition, size, price, imgurl, listdate) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6, $7, now());', [uid, title, brand, condition, size, price, imgurl])
+    db.any('INSERT INTO listing(key, uid, title, brand, condition, size, price, imgurl, listdate) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6, $7, now());', [userId, title, brand, condition, size, price, imgurl, listdate])
       .then((data) => {
         // success;
         // console.log('postListing Success.');
