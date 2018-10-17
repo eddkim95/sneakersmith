@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { throws } from 'assert';
 import { resolve } from 'dns';
 
@@ -36,12 +37,10 @@ class Login extends Component {
     })
       .then(response => response.json())
       .then((data) => {
-        alert('Login successful.');
-        updateLoggedInStatus();
+        this.props.updateLoggedInStatus(data.username, data.email);
       })
       .catch((err) => {
-        // alert('Login failed.');
-        console.log('Login failed.');
+        console.log(err);
       });
   }
 
@@ -50,6 +49,9 @@ class Login extends Component {
   }
 
   render() {
+    if (this.props.isLoggedIn) {
+      return <Redirect to="/" />;   // todo: recognize user identity
+    }
     const {
       updateUsername, updatePassword, validateUser, redirectToSignup,
     } = this;
