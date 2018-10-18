@@ -10,7 +10,7 @@ const initialState = {
   size: 0,
   condition: '',
   listings: [],
-  categories: [],
+  currFilter: '',
   filterBy: '',
   isLoggedin: false,
   formToggleState: false,
@@ -113,9 +113,9 @@ export default function (previousState = initialState, action) {
 
       return stateCopy;
     }
-    case types.GET_FILTERS: {
+    case types.APPLY_FILTER: {
       stateCopy = Object.assign({}, previousState);
-      stateCopy.categories = action.payload.target.value;
+      stateCopy.listings = action.payload;
       return stateCopy;
     }
     case types.FILTER_PRODUCTS: {

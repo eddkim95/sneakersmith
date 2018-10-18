@@ -49,14 +49,9 @@ export const handleSubmit = event => ({
   payload: event,
 });
 
-// export const getFilters = () => ({
-//   type: types.GET_FILTERS,
-//   payload: ,
-// })
-
-// export const filterProducts = () => ({
+// export const filterProducts = filter => ({
 //   type: types.FILTER_PRODUCTS,
-//   payload: ,
+//   payload: filter,
 // })
 
 export const toggleForm = event => ({
@@ -71,6 +66,16 @@ export const toggleDetail = event => ({
 
 export const displayListing = data => ({
   type: types.DISPLAY_LISTING,
+  payload: data,
+});
+
+export const addWishlist = data => ({
+  type: types.ADD_WISHLIST,
+  payload: data,
+});
+
+export const deleteWishlist = data => ({
+  type: types.DEL_WISHLIST,
   payload: data,
 });
 
@@ -142,6 +147,60 @@ export const createNewListing = (postData) => {
       .then((res) => {
         console.log('sending data');
         dispatch(createListing(postData));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+};
+
+export const addToWishlist = (user, listing) => {
+  return function (dispatch) {
+    return fetch('/addWishlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify({ uid: user.uid, lid: listing.lid }),
+    })
+      .then((res) => {
+        dispatch(addWishlist(listing));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+};
+
+export const removeFromWishlist = (user, listing) => {
+  return function (dispatch) {
+    return fetch('/removeWishlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify({ uid: user.uid, lid: listing.lid }),
+    })
+      .then((res) => {
+        dispatch(deleteWishlist(listing));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+};
+
+export const applyFilter = filtered => ({
+  type: types.APPLY_FILTER,
+  payload: filtered,
+})
+
+export const getFilters = filter => {
+  return function (dispatch) {
+    return fetch(`/${filter}`)
+      .then((res) => res.json())
+      .then((filtered) => {
+        dispatch(applyFilter(filtered));
       })
       .catch((err) => {
         console.log(err);

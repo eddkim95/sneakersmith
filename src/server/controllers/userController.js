@@ -194,9 +194,8 @@ module.exports = {
   * @param {object} res - the request object from the server.
    */
   filterByBrand: (req, res) => {
-    const { brand } = req.params;
 
-    db.any('SELECT * FROM listing WHERE brand = $1;', [brand])
+    db.any('SELECT * FROM listing ORDER BY brand ASC;')
       .then((data) => {
         // success;
         // console.log('filterByBrand Success.');
@@ -215,9 +214,8 @@ module.exports = {
   * @param {object} res - the request object from the server.
    */
   filterByCondition: (req, res) => {
-    const { condition } = req.params;
 
-    db.any('SELECT * FROM listing WHERE condition = $1;', [condition])
+    db.any('SELECT * FROM listing ORDER BY condition ASC;')
       .then((data) => {
         // success;
         console.log('filterByConditionSuccess.');
@@ -257,9 +255,28 @@ module.exports = {
   * @param {object} res - the request object from the server.
    */
   filterBySize: (req, res) => {
-    const { size } = req.params;
 
-    db.any('SELECT * FROM listing WHERE size = $1;', [size])
+    db.any('SELECT * FROM listing ORDER BY size;')
+      .then((data) => {
+        // success;
+        console.log('filterBySize Success.');
+        res.json(data);
+      })
+      .catch((error) => {
+        // error;
+        console.log(error);
+        res.sendStatus(404);
+      });
+  },
+
+  /**
+  * Get listings by price from the database.
+  * @param {object} req - the request object from the server.
+  * @param {object} res - the request object from the server.
+   */
+  filterByPrice: (req, res) => {
+
+    db.any('SELECT * FROM listing ORDER BY price ASC;')
       .then((data) => {
         // success;
         console.log('filterBySize Success.');

@@ -14,6 +14,7 @@ const mapStateToProps = store => ({
   categories: store.posts.categories,
   filterBy: store.posts.filterBy,
   formToggleState: store.posts.formToggleState,
+  filter: store.posts.currFilter,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -39,10 +40,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.uploadImage(event));
   },
   getFilters: (event) => {
-    dispatch(actions.getFilters(event));
+    console.log(event.target.value);
+    dispatch(actions.getFilters(event.target.value));
   },
   filterProducts: (event) => {
-    dispatch(actions.filterProducts(event));
+    dispatch(actions.filterProducts(event.target.value));
   },
   toggleForm: (event) => {
     dispatch(actions.toggleForm(event));
@@ -51,7 +53,7 @@ const mapDispatchToProps = dispatch => ({
 
 class PostCreator extends Component {
   render() {
-    const { formToggleState, createNewListing, toggleForm, updateSelectedBrand, updateSelectedSize, updateSelectedCondition, updateTitle, updatePrice, updateUrl, uploadImage, brand, condition, userId, imgUrl, title, price, size } = this.props;
+    const { formToggleState, createNewListing, toggleForm, updateSelectedBrand, updateSelectedSize, updateSelectedCondition, updateTitle, updatePrice, updateUrl, uploadImage, brand, condition, userId, imgUrl, title, price, size, getFilters, filterProducts, filter } = this.props;
     return (
       <div>
         <div id="banner">
@@ -65,16 +67,14 @@ class PostCreator extends Component {
             <nav className="post-button-containers">
               <div>
                 <select className="filter-buttons" onChange={event => getFilters(event)}>
-                  <option value="Filter"> Filter </option>
-                  <option value="brand">brand</option>
+                  <option value="brand">Brand</option>
                   {/* <option>size</option> */}
-                  <option value="condition">condition</option>
-                  <option value="size">size</option>
+                  <option value="condition">Condition</option>
+                  <option value="size">Size</option>
+                  <option value="price">Price</option>
                 </select>
-                <select className="filter-buttons" onChange={event => filterProduct(event)}>
-                  <option value="Filter By"> Filter By </option>
-                  {/* {options} */}
-                </select>
+                  {/* <button className="filter-buttons" type="button" value={filter} onClick={event => filterProducts(event)}> Filter By </button>
+                  {options} */}
               </div>
               <button type="button" className="post-button" onClick={toggleForm}>Post</button>
             </nav>

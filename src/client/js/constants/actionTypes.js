@@ -12,3 +12,8 @@ export const TOGGLE_FORM = 'TOGGLE_FORM';
 export const TOGGLE_DETAIL = 'TOGGLE_DETAIL';
 export const DISPLAY_LISTING = 'DISPLAY_LISTING';
 export const HANDLE_SUBMIT = 'HANDLE_SUBMIT';
+export const ADD_WISHLIST = 'ADD_WISHLIST';
+export const DEL_WISHLIST = 'DEL_WISHLIST';
+export const APPLY_FILTER = 'APPLY_FILTERS';
+
+

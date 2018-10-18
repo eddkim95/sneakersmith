@@ -18,11 +18,16 @@ app.post('/addWishlist', userController.addWishlist);
 app.post('/removeWishlist', userController.removeWishlist);
 
 // app.post('/getUserPosts', userController.getUserPosts);
+app.get('/brand', userController.filterByBrand);
+app.get('/condition', userController.filterByCondition);
+// app.get('/filterbyuser/:uid', userController.filterByUser);
+app.get('/size', userController.filterBySize);
+app.get('/price', userController.filterByPrice);
 
-app.get('/filterbyBrand/:brand', userController.filterByBrand);
-app.get('/filterbyCondition/:condition', userController.filterByCondition);
-app.get('/filterbyuser/:uid', userController.filterByUser);
-app.get('/filterbySize/:size', userController.filterBySize);
+// app.get('/filterbyBrand/:brand', userController.filterByBrand);
+// app.get('/filterbyCondition/:condition', userController.filterByCondition);
+// app.get('/filterbyuser/:uid', userController.filterByUser);
+// app.get('/filterbySize/:size', userController.filterBySize);
 // app.post('/images', parser.single('image'), userController.imageParser);
 app.get('/categories/:filter', userController.getCategories);
 app.use(express.static(`${__dirname}/../../dist`));
